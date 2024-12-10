@@ -3,6 +3,8 @@ From: Neil Armstrong <narmstrong@baylibre.com>
 Date: Fri, 3 Dec 2021 18:56:29 +0100
 Subject: [PATCH] Add gxlimg commands if GXLIMG_PATH if set
 
+Upstream-Status: Pending
+
 Signed-off-by: Neil Armstrong <narmstrong@baylibre.com>
 ---
  axg.inc  | 22 ++++++++++++++++++++++
