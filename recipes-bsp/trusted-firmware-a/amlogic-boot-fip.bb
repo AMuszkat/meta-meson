@@ -70,9 +70,8 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=2dbd68496cc5ed3e68e855100cb86363"
 
 
 SRC_URI = "git://github.com/LibreELEC/amlogic-boot-fip.git;protocol=https;branch=master \
-           file://0001-Add-gxlimg-commands-if-GXLIMG_PATH-if-set.patch \
            "
-SRCREV = "7ff0004e0e4d261ba81334a2f46302bd06704aca"
+SRCREV = "8599bc77b17f38e69275f6145acc5792faab735e"
 
 S = "${WORKDIR}/git"
 B = "${WORKDIR}/build"
@@ -80,7 +79,7 @@ B = "${WORKDIR}/build"
 inherit deploy
 
 do_compile () {
-	if [ ${PACKAGECONFIG_CONFARGS} == "gxlimg" ] ; then
+	if [ "${PACKAGECONFIG_CONFARGS}" = " gxlimg" ] ; then
 		bbwarn "GXLIMG usage is experimental"
 		export GXLIMG_PATH=$(which gxlimg)
 	fi
@@ -88,7 +87,7 @@ do_compile () {
 	mkdir -p ${B} ${B}/tmp
 	(cd ${S} ; ./build-fip.sh ${MODEL} ${DEPLOY_DIR_IMAGE}/u-boot.bin ${B} ${B}/tmp)
 
-	if [ ${PACKAGECONFIG_CONFARGS} == "gxlimg" ] ; then
+	if [ "${PACKAGECONFIG_CONFARGS}" = " gxlimg" ] ; then
 		bbwarn "GXLIMG doesn't output u-boot.bin.sd.bin file, using empty first sector"
 		dd if=/dev/zero of=${B}/u-boot.bin.sd.bin bs=512 count=1
 		cat ${B}/u-boot.bin >> ${B}/u-boot.bin.sd.bin
